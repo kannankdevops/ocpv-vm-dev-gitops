@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dev-vms
+resources:
+  - ../../base
+patches:
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: dev-vm
+      - op: replace
+        path: /metadata/labels/env
+        value: dev
+    target:
+      kind: VirtualMachine
