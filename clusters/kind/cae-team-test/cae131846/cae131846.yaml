@@ -1,0 +1,72 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","metadata":{"annotations":{},"labels":{"app":"cae-app-2","team":"cae-team"},"name":"cae131846","namespace":"cae-team-test"},"spec":{"running":true,"template":{"metadata":{"labels":{"kubevirt.io/vm":"cae131846"}},"spec":{"domain":{"devices":{"disks":[{"disk":{"bus":"virtio"},"name":"containerdisk"}]},"resources":{"requests":{"cpu":1,"memory":"512Mi"}}},"volumes":[{"containerDisk":{"image":"quay.io/kubevirt/cirros-container-disk-demo:latest"},"name":"containerdisk"}]}}}}
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  labels:
+    app: cae-app-2
+    team: cae-team
+  name: cae131846
+  namespace: cae-team-test
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: cae131846
+    spec:
+      architecture: amd64
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: containerdisk
+        firmware:
+          serial: c5330202-eb3a-4b01-b4ba-2648cdcb6374
+        machine:
+          type: q35
+        resources:
+          requests:
+            cpu: "1"
+            memory: 512Mi
+      volumes:
+      - containerDisk:
+          image: quay.io/kubevirt/cirros-container-disk-demo:latest
+        name: containerdisk
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-11-06T08:34:24Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    message: cannot migrate VMI which does not use masquerade, bridge with kubevirt.io/allow-pod-bridge-network-live-migration
+      VM annotation or a migratable plugin to connect to the pod network
+    reason: InterfaceNotLiveMigratable
+    status: "False"
+    type: LiveMigratable
+  - lastProbeTime: null
+    lastTransitionTime: null
+    message: 'InterfaceNotLiveMigratable: cannot migrate VMI which does not use masquerade,
+      bridge with kubevirt.io/allow-pod-bridge-network-live-migration VM annotation
+      or a migratable plugin to connect to the pod network'
+    reason: NotMigratable
+    status: "False"
+    type: StorageLiveMigratable
+  created: true
+  desiredGeneration: 1
+  observedGeneration: 1
+  printableStatus: Running
+  ready: true
+  runStrategy: Always
+  volumeSnapshotStatuses:
+  - enabled: false
+    name: containerdisk
+    reason: Snapshot is not supported for this volumeSource type [containerdisk]

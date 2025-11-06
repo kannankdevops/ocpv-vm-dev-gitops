@@ -1,0 +1,54 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","metadata":{"annotations":{},"labels":{"app":"ito-app","team":"cae-team"},"name":"ito135419","namespace":"cae-team-test"},"spec":{"running":false,"template":{"metadata":{"labels":{"kubevirt.io/vm":"ito135419"}},"spec":{"domain":{"devices":{"disks":[{"disk":{"bus":"virtio"},"name":"containerdisk"}]},"resources":{"requests":{"cpu":1,"memory":"512Mi"}}},"volumes":[{"containerDisk":{"image":"quay.io/kubevirt/cirros-container-disk-demo:latest"},"name":"containerdisk"}]}}}}
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  labels:
+    app: ito-app
+    team: cae-team
+  name: ito135419
+  namespace: cae-team-test
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: ito135419
+    spec:
+      architecture: amd64
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: containerdisk
+        firmware:
+          serial: 0aabbae5-981d-4f52-9ebb-e8274fe3a611
+        machine:
+          type: q35
+        resources:
+          requests:
+            cpu: "1"
+            memory: 512Mi
+      volumes:
+      - containerDisk:
+          image: quay.io/kubevirt/cirros-container-disk-demo:latest
+        name: containerdisk
+status:
+  conditions:
+  - lastProbeTime: "2025-11-06T08:33:38Z"
+    lastTransitionTime: "2025-11-06T08:33:38Z"
+    message: VMI does not exist
+    reason: VMINotExists
+    status: "False"
+    type: Ready
+  printableStatus: Stopped
+  volumeSnapshotStatuses:
+  - enabled: false
+    name: containerdisk
+    reason: Snapshot is not supported for this volumeSource type [containerdisk]
