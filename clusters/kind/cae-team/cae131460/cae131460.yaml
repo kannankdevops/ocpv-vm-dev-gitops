@@ -15,7 +15,7 @@ metadata:
   name: cae131460
   namespace: cae-team
 spec:
-  running: true
+  runStrategy: Always
   template:
     metadata:
       labels:
