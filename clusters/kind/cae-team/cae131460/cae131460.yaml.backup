@@ -1,0 +1,81 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","metadata":{"annotations":{},"labels":{"app":"cae-app","kubevirt.io/vm":"cae131460","team":"cae-team"},"name":"cae131460","namespace":"cae-team"},"spec":{"running":true,"template":{"metadata":{"labels":{"kubevirt.io/vm":"cae131460"}},"spec":{"domain":{"devices":{"disks":[{"disk":{"bus":"virtio"},"name":"containerdisk"},{"disk":{"bus":"virtio"},"name":"cloudinitdisk"}],"interfaces":[{"masquerade":{},"name":"default"}]},"resources":{"requests":{"cpu":1,"memory":"1Gi"}}},"networks":[{"name":"default","pod":{}}],"volumes":[{"containerDisk":{"image":"quay.io/kubevirt/cirros-container-disk-demo:latest"},"name":"containerdisk"},{"cloudInitNoCloud":{"userDataBase64":"SGkuXG4="},"name":"cloudinitdisk"}]}}}}
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  labels:
+    app: cae-app
+    kubevirt.io/vm: cae131460
+    team: cae-team
+  name: cae131460
+  namespace: cae-team
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: cae131460
+    spec:
+      architecture: amd64
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: containerdisk
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
+          interfaces:
+          - masquerade: {}
+            name: default
+        firmware:
+          serial: 6a747cec-ea76-42c2-bab5-d014ae738e6e
+        machine:
+          type: q35
+        resources:
+          requests:
+            cpu: "1"
+            memory: 1Gi
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - containerDisk:
+          image: quay.io/kubevirt/cirros-container-disk-demo:latest
+        name: containerdisk
+      - cloudInitNoCloud:
+          userDataBase64: SGkuXG4=
+        name: cloudinitdisk
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-11-06T08:32:24Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: LiveMigratable
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: StorageLiveMigratable
+  created: true
+  desiredGeneration: 1
+  observedGeneration: 1
+  printableStatus: Running
+  ready: true
+  runStrategy: Always
+  volumeSnapshotStatuses:
+  - enabled: false
+    name: containerdisk
+    reason: Snapshot is not supported for this volumeSource type [containerdisk]
+  - enabled: false
+    name: cloudinitdisk
+    reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
